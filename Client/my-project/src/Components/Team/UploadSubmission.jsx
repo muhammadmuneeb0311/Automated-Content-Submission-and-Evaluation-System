@@ -1,13 +1,12 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useAuth } from "../store";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
 const UploadSubmission = () => {
   const { token, teamId } = useAuth();  
-  const decoded = useMemo(() => (token ? jwtDecode(token) : {}), [token]);
-  const userId = decoded.id;
+  // const decoded = useMemo(() => (token ? jwtDecode(token) : {}), [token]);
+  // const userId = decoded.id;
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -26,11 +25,11 @@ const UploadSubmission = () => {
     });
   }, [token]);
 
-  const [teamData, setTeamData] = useState({
-    team: null,
-    totalVideos: 0,
-    submissions: []
-  });
+  // const [teamData, setTeamData] = useState({
+  //   team: null,
+  //   totalVideos: 0,
+  //   submissions: []
+  // });
 
   const handleChange = (e) => {
     const { name, value } = e.target;

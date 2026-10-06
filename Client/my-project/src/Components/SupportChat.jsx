@@ -6,7 +6,6 @@ import {
   Container, Card, Form, Button, Badge, ListGroup, InputGroup, Spinner, Alert, Row, Col,
 } from "react-bootstrap";
 import { Send, ChatSquare, People, Person, Shield, Clock } from "react-bootstrap-icons";
-import { luxonLocalizer } from "react-big-calendar";
 
 const SupportChat = () => {
   const token = localStorage.getItem("token");
