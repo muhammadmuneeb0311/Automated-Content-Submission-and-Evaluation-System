@@ -34,7 +34,7 @@ const { activateAccount } = require("./controllers/auth-controllers");
 
 // ===== Import Routes =====
 const authRoutes = require("./Routes/Auth");
-const adminRoutes = require("./Routes/AdminRoutes/AdminRoute");
+const AdminRoute = require("./Routes/AdminRoutes/AdminRoute");
 const TeamRoutes = require("./Routes/TeamRoute");
 const submissionRoutes = require("./Routes/SubmissionRoute");
 const assignEvaluatorRoutes = require("./Routes/adminRoutes/assignEvaluatorRoutes");
@@ -50,7 +50,7 @@ const supportRoutes = require("./Routes/supportRoutes");
 app.use("/api/admin/result", resultRoutes);
 app.post("/api/auth/activate", activateAccount);
 app.use("/api/auth", authRoutes);
-app.use("/api/admin", adminRoutes);
+app.use("/api/admin", AdminRoute);
 app.use("/api/criteria", evaluationCriteriaRoutes);
 app.use("/api/teams", TeamRoutes);
 app.use("/api/team", teamMemberRoutes);
