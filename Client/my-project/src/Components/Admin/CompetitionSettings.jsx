@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-
+import { useCallback, useEffect, useState } from "react";
 const CompetitionSettings = () => {
   const [settings, setSettings] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -18,14 +16,20 @@ const CompetitionSettings = () => {
   };
 
   // ✅ Fetch all settings
-  const getSettings = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/admin/competition-settings", config);
-      setSettings(res.data);
-    } catch (err) {
-      console.error("Error fetching settings:", err.response?.data || err.message);
-    }
-  };
+const getSettings = useCallback(async () => {
+  try {
+    const res = await axios.get(
+      "http://localhost:5000/api/admin/competition-settings",
+      config
+    );
+    setSettings(res.data);
+  } catch (err) {
+    console.error(
+      "Error fetching settings:",
+      err.response?.data || err.message
+    );
+  }
+}, [config]);
 
   // ✅ Create or Update setting
   const handleSubmit = async (e) => {
