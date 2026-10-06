@@ -1,10 +1,18 @@
-require("dotenv").config();
+require("dotenv").config({ override: true }); // ensures process.env is populated
+console.log("JWT_SECRET at startup:", process.env.mysecretkey); // should print supersecret
+
+
+
+
+
 const express = require("express");
 const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
 const connectDb = require("./utils/db");
 const competitionSettingRoutes = require("./Routes/adminRoutes/CompetitionSettingRoute");
+const evaluatorRoutes = require("./Routes/evaluatorRoutes/evaluatorRoutes");
+
 
 const app = express();
 
@@ -47,12 +55,16 @@ app.use("/api/criteria", evaluationCriteriaRoutes);
 app.use("/api/teams", TeamRoutes);
 app.use("/api/team", teamMemberRoutes);
 app.use("/api/submissions", submissionRoutes);
-app.use("/api/evaluators", assignEvaluatorRoutes);
+app.use("/api/admin/evaluators", assignEvaluatorRoutes);
 app.use("/api/assignments", assignmentRoutes);
 app.use("/api/scores", scoreRoutes);
 app.use("/api/debug", debugRoutes);
 app.use("/api/admin/competition-settings", competitionSettingRoutes);
 app.use("/api/support", supportRoutes);
+
+
+// ===== EVALUATOR ROUTES =====
+app.use("/api/evaluators", evaluatorRoutes);
 
 // ===== DEFAULT ROUTE =====
 app.get("/", (req, res) => res.send("🚀 Server is running"));

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getPendingMembers, approveMember,getMemberTeamName } = require("../controllers/team-controller");
+const { getPendingMembers, approveMember,getMemberTeamName,getTeamMembers } = require("../controllers/team-controller");
 const { authMiddleware } = require("../middleware/authMiddleware");
 const Team = require("../Models/Team");
 
@@ -29,4 +29,12 @@ router.get("/:teamId", authMiddleware, async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 });
+
+
+// Get team members (id + name)
+router.get("/:teamId/members", authMiddleware, getTeamMembers);
+
+
+
+
 module.exports = router;

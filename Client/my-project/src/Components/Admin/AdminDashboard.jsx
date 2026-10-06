@@ -30,7 +30,7 @@ const AdminDashboard = () => {
 
   const handleAssignEvaluators = async (teamId, submissionId) => {
     try {
-      const res = await axiosInstance.post(`/evaluators/assign/${teamId}/${submissionId}`);
+      const res = await axiosInstance.post(`/admin/evaluators/assign/${teamId}/${submissionId}`);
       alert(res.data.message || "Evaluators assigned successfully ✅");
       const latestRes = await axiosInstance.get("/admin/submissions/latest");
       setLatestSubmissions(latestRes.data || []);

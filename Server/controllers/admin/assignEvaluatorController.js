@@ -104,30 +104,7 @@ const populatedTeam = await Team.findById(teamId)
 
 
 
-const getAssignedSubmissions = async (req, res) => {
-  try {
-    const evaluatorId = req.user.id;
 
-    const assignments = await Assignment.find({ evaluatorId })
-      .populate({
-        path: "submissionId",
-        populate: { path: "teamId", select: "teamName" }
-      })
-      .exec();
-
-    // Attach hasSubmitted flag for each assignment
-    const results = await Promise.all(assignments.map(async (a) => {
-      const teamId = a.submissionId?.teamId?._id || a.submissionId?.teamId;
-      const existing = await Score.findOne({ teamId, evaluatorId });
-      return { ...a.toObject(), hasSubmitted: !!existing };
-    }));
-
-    res.status(200).json(results);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error fetching assigned submissions" });
-  }
-};
 
 const evaluateSubmission = async (req, res) => {
   try {
@@ -164,4 +141,4 @@ const evaluateSubmission = async (req, res) => {
 };
 
 
-module.exports = { assignEvaluators ,getAssignedSubmissions,evaluateSubmission };
+module.exports = { assignEvaluators ,evaluateSubmission };

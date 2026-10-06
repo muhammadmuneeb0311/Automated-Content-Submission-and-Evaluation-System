@@ -7,7 +7,7 @@ const RoleBasedSidebar = ({ role }) => {
   // Define menu items for each role
   const menus = {
     admin: [
-      { to: "/evaluators", label: "Evaluator Management", icon: "bi bi-person-badge" },
+  
       { to: "/admin/evaluation-management", label: "Evaluation Management", icon: "bi bi-clipboard-check" },
 
       { to: "/admin/results", label: "Results", icon: "bi bi-file-text" },
@@ -18,7 +18,7 @@ const RoleBasedSidebar = ({ role }) => {
     ],
     evaluator: [
       { to: "/assigned-teams", label: "Assigned Teams", icon: "bi bi-people" },
-      { to: "/evaluate", label: "Evaluate Submissions", icon: "bi bi-pencil-square" },
+      { to: "/EvaluatorSubmissions", label: "Evaluate Submissions", icon: "bi bi-pencil-square" },
       { to: "/admin/results", label: "Result Board", icon: "bi bi-trophy" },
     ],
     team: [
@@ -65,7 +65,8 @@ const RoleBasedSidebar = ({ role }) => {
     }
   };
 
-  const currentRole = roleConfig[role];
+const currentRole = roleConfig[role] || roleConfig["team"];
+
 
   return (
     <>

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { assignEvaluators, getAssignedSubmissions, evaluateSubmission } = require("../../controllers/admin/assignEvaluatorController");
+const { assignEvaluators, evaluateSubmission } = require("../../controllers/admin/assignEvaluatorController");
 const { authMiddleware, adminMiddleware } = require("../../middleware/authMiddleware");
 
 
@@ -15,7 +15,6 @@ router.post(
 // Evaluator updates evaluation status
 router.put("/evaluate/:assignmentId", authMiddleware, evaluateSubmission);
 
-// Get assigned submissions for evaluator
-router.get("/assigned", authMiddleware, getAssignedSubmissions);
+
 
 module.exports = router;

@@ -2,6 +2,8 @@ import { useAuth } from "./store";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 
 const Header = () => {
   const { token, removeToken } = useAuth();
@@ -48,11 +50,7 @@ const Header = () => {
 
   return (
     <>
-      {/* Bootstrap Icons CDN */}
-      <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" 
-        rel="stylesheet" 
-      />
+  
 
       <nav className="navbar navbar-expand-lg navbar-dark bg-gradient-primary shadow-sm py-2">
         <div className="container-fluid">
@@ -112,22 +110,9 @@ const Header = () => {
         <span>Dashboard</span>
       </Link>
     </li>
-    <li className="nav-item">
-      <Link to="/leaderboard" className="nav-link d-flex align-items-center">
-        <i className="bi bi-trophy me-1"></i>
-        <span>Leaderboard</span>
-      </Link>
-    </li>
+   
     
-    {/* Support link only for admin, team, team member */}
-    {["admin", "team", "teammember"].includes(role) && (
-      <li className="nav-item">
-        <Link to="/support" className="nav-link d-flex align-items-center">
-          <i className="bi bi-chat-dots me-1"></i>
-          <span>Support</span>
-        </Link>
-      </li>
-    )}
+  
   </ul>
 )}
 
@@ -163,27 +148,7 @@ const Header = () => {
                     </span>
                   </div>
 
-                  {/* Notifications */}
-                  <div className="dropdown">
-                    <button 
-                      className="btn btn-link text-white position-relative p-1" 
-                      type="button" 
-                      data-bs-toggle="dropdown"
-                    >
-                      <i className="bi bi-bell fs-5"></i>
-                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        3
-                      </span>
-                    </button>
-                    <ul className="dropdown-menu dropdown-menu-end shadow">
-                      <li><h6 className="dropdown-header">Notifications</h6></li>
-                      <li><a className="dropdown-item small" href="#">New evaluation received</a></li>
-                      <li><a className="dropdown-item small" href="#">Team submission updated</a></li>
-                      <li><a className="dropdown-item small" href="#">Deadline reminder</a></li>
-                      <li><hr className="dropdown-divider" /></li>
-                      <li><a className="dropdown-item small text-center" href="#">View all</a></li>
-                    </ul>
-                  </div>
+         
 
                   {/* User Profile Dropdown */}
                   <div className="dropdown">
@@ -215,24 +180,14 @@ const Header = () => {
                         </div>
                       </li>
                       <li><hr className="dropdown-divider" /></li>
+                     
                       <li>
-                        <Link className="dropdown-item d-flex align-items-center" to="/profile">
-                          <i className="bi bi-person-gear me-2"></i>
-                          Profile Settings
-                        </Link>
-                      </li>
-                      <li>
-                        <Link className="dropdown-item d-flex align-items-center" to="/change-password">
+                        <Link className="dropdown-item d-flex align-items-center" to="/forgot-password/:token">
                           <i className="bi bi-shield-lock me-2"></i>
-                          Change Password
+                          Forgot Password
                         </Link>
                       </li>
-                      <li>
-                        <Link className="dropdown-item d-flex align-items-center" to="/settings">
-                          <i className="bi bi-gear me-2"></i>
-                          Preferences
-                        </Link>
-                      </li>
+                     
                       <li><hr className="dropdown-divider" /></li>
                       <li>
                         <button
@@ -252,45 +207,7 @@ const Header = () => {
         </div>
       </nav>
 
-      {/* Custom Styles */}
-      <style jsx>{`
-        .bg-gradient-primary {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-        }
-        .bg-gradient-danger {
-          background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
-        }
-        .bg-gradient-success {
-          background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
-        }
-        .bg-gradient-warning {
-          background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
-        }
-        .bg-gradient-info {
-          background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%) !important;
-        }
-        .bg-gradient-secondary {
-          background: linear-gradient(135deg, #b8c6db 0%, #f5f7fa 100%) !important;
-        }
-        .brand-text {
-          background: linear-gradient(45deg, #fff, #e3f2fd);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-        .navbar-nav .nav-link {
-          transition: all 0.2s ease-in-out;
-          border-radius: 0.375rem;
-          margin: 0 0.25rem;
-        }
-        .navbar-nav .nav-link:hover {
-          background-color: rgba(255, 255, 255, 0.1);
-        }
-        .dropdown-menu {
-          border: 1px solid rgba(0,0,0,0.1);
-          min-width: 250px;
-        }
-      `}</style>
+
     </>
   );
 };

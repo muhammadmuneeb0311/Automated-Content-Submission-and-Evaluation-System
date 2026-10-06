@@ -26,6 +26,8 @@ import ForgotPassword from "./Components/Auth/ForgotPassword";
 import ResetPassword from "./Components/Auth/ResetPassword";
 import RoleBasedSidebar from "./Components/RoleBasedSidebar";
 import RoleBasedDashboard from "./Components/RoleBasedDashboard";
+import EvaluatorSubmissions from "./Components/Evaluator/EvaluatorSubmissions";
+
 
 function App() {
   const { userRole } = useAuth();
@@ -55,8 +57,9 @@ function App() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/about" element={<About />} />
       <Route path="/activate" element={<ActivateAccount />} />
-     <Route path="/forgot-password" element={<ForgotPassword />} />
-     <Route path="/reset-password/:token" element={<ResetPassword />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password/:token" element={<ResetPassword />} />
+      <Route path="/forgot-password/:token" element={<ForgotPassword />} />
 
 
       {/* Protected routes */}
@@ -82,27 +85,27 @@ function App() {
           </ProtectedRoute>
         }
       />
-<Route
-  path="/score-submission/:teamId"
-  element={
-    <ProtectedRoute allowedRoles={["evaluator"]}>
-      <Layout role={userRole}>
-        <ScoreSubmission />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
+      <Route
+        path="/score-submission/:teamId"
+        element={
+          <ProtectedRoute allowedRoles={["evaluator"]}>
+            <Layout role={userRole}>
+              <ScoreSubmission />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
 
-<Route
- path="/admin/evaluation-management"
-  element={
-    <ProtectedRoute allowedRoles={["admin"]}>
-      <Layout role={userRole}>
-        <EvaluationManagement />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
+      <Route
+        path="/admin/evaluation-management"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <Layout role={userRole}>
+              <EvaluationManagement />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
 
       <Route
         path="/admin/pending-users"
@@ -136,59 +139,70 @@ function App() {
           </ProtectedRoute>
         }
       />
-<Route
-  path="/admin/competition-settings"
-  element={
-    <ProtectedRoute allowedRoles={["admin"]}>
-      <Layout role={userRole}>
-        <CompetitionSettings />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/admin/results"
-  element={
-    <ProtectedRoute allowedRoles={["admin","evaluator","team","teammember"]}>
-      <Layout role={userRole}>
-        <Results />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
+      <Route
+        path="/admin/competition-settings"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <Layout role={userRole}>
+              <CompetitionSettings />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/results"
+        element={
+          <ProtectedRoute allowedRoles={["admin", "evaluator", "team", "teammember"]}>
+            <Layout role={userRole}>
+              <Results />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
 
 
-<Route
-  path="/support"
-  element={
-    <ProtectedRoute allowedRoles={["admin", "evaluator", "team", "teammember"]}>
-      <Layout role={userRole}>
-        <SupportChat />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
+      <Route
+        path="/support"
+        element={
+          <ProtectedRoute allowedRoles={["admin", "evaluator", "team", "teammember"]}>
+            <Layout role={userRole}>
+              <SupportChat />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
 
-<Route
-  path="/RoleBasedSidebar"
-  element={
-    <ProtectedRoute allowedRoles={["admin", "evaluator", "team", "teammember"]}>
-      <Layout role={userRole}>
-        <SupportChat />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/RoleBasedDashboard"
-  element={
-    <ProtectedRoute allowedRoles={["admin", "evaluator", "team", "teammember"]}>
-      <Layout role={userRole}>
-        <RoleBasedDashboard />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
+      <Route
+        path="/EvaluatorSubmissions"
+        element={
+          <ProtectedRoute allowedRoles={["evaluator"]}>
+            <Layout role={userRole}>
+              <EvaluatorSubmissions />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/RoleBasedSidebar"
+        element={
+          <ProtectedRoute allowedRoles={["admin", "evaluator", "team", "teammember"]}>
+            <Layout role={userRole}>
+              <SupportChat />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/RoleBasedDashboard"
+        element={
+          <ProtectedRoute allowedRoles={["admin", "evaluator", "team", "teammember"]}>
+            <Layout role={userRole}>
+              <RoleBasedDashboard />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
 
       {/* Fallback route */}
       <Route path="/*" element={<Login />} />

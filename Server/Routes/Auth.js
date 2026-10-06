@@ -25,6 +25,7 @@ router.route("/activate").post(activateAccount);
 
 
 router.post("/forgot-password", forgotPassword);
+
 router.post("/reset-password/:token", resetPassword);
 
 

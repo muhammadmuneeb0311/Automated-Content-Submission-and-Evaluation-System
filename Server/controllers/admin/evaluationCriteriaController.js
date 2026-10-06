@@ -58,13 +58,23 @@ exports.getActiveCriteria = async (req, res) => {
 exports.updateCriteria = async (req, res) => {
   try {
     const { id } = req.params;
-    const updated = await EvaluationCriteria.findByIdAndUpdate(id, req.body, { new: true });
+    const updated = await EvaluationCriteria.findByIdAndUpdate(
+      id,
+      req.body,
+      { new: true, runValidators: true } // important!
+    );
+
     if (!updated) return res.status(404).json({ message: "Criteria not found" });
+
     res.json({ message: "Criteria updated ✅", updated });
   } catch (error) {
-    res.status(500).json({ message: "Error updating criteria ❌" });
+    if (error.code === 11000) {
+      return res.status(400).json({ message: "Criteria name already exists" });
+    }
+    res.status(500).json({ message: "Error updating criteria ❌", error });
   }
 };
+
 
 // 🗑️ Delete criteria
 exports.deleteCriteria = async (req, res) => {

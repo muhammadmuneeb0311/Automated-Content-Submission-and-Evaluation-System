@@ -4,6 +4,7 @@ import { useAuth } from "../store";
 import { jwtDecode } from "jwt-decode"; 
 import axios from "axios";
 import { Container, Row, Col, Card, Form, Button, Alert, Spinner } from 'react-bootstrap';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const URL = "http://localhost:5000/api/auth/login";
 
@@ -80,11 +81,7 @@ const Login = () => {
 
   return (
     <>
-      {/* Bootstrap Icons */}
-      <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" 
-        rel="stylesheet" 
-      />
+   
 
       <div className="bg-gradient-primary min-vh-100 d-flex align-items-center">
         <Container>
@@ -256,25 +253,7 @@ const Login = () => {
         </Container>
       </div>
 
-      {/* Custom Styles */}
-      <style jsx>{`
-        .bg-gradient-primary {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-        }
-        .min-vh-100 {
-          min-height: 100vh;
-        }
-        .border-2 {
-          border-width: 2px !important;
-        }
-        .card {
-          border-radius: 1rem;
-        }
-        .form-control:focus {
-          border-color: #667eea;
-          box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-        }
-      `}</style>
+  
     </>
   );
 };

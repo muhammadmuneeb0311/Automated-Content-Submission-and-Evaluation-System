@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
-const User = require("../Models/user");
+const User = require("../Models/User");
 const admin = require("../Models/Admin");
 const Evaluator = require("../Models/Evaluator");
 const Team = require("../Models/Team");
@@ -346,35 +346,36 @@ const forgotPassword = async (req, res) => {
 };         
 
 
+
 const resetPassword = async (req, res) => {
-  const { token } = req.params;
+  const token = req.params.token;
   const { password } = req.body;
 
-  try {
-    // Find user by token in any collection
-    const user = 
-      (await User.findOne({ resetPasswordToken: token, resetPasswordExpire: { $gt: Date.now() } })) ||
-      (await Team.findOne({ resetPasswordToken: token, resetPasswordExpire: { $gt: Date.now() } })) ||
-      (await Evaluator.findOne({ resetPasswordToken: token, resetPasswordExpire: { $gt: Date.now() } })) ||
-      (await TeamMember.findOne({ resetPasswordToken: token, resetPasswordExpire: { $gt: Date.now() } }));
+  const query = {
+    resetPasswordToken: token,
+    resetPasswordExpire: { $gt: Date.now() },
+  };
 
-    if (!user) return res.status(400).json({ msg: "Invalid or expired token" });
+console.log("Token received:", token);
 
-    // Hash new password
-    const hashedPassword = await bcrypt.hash(password, 10);
-    user.password = hashedPassword;
+const user =
+  (await User.findOne(query)) ||
+  (await Team.findOne(query)) ||
+  (await Evaluator.findOne(query)) ||
+  (await TeamMember.findOne(query));
 
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpire = undefined;
+console.log("User found:", user);
 
-    await user.save();
+  if (!user) return res.status(400).json({ msg: "Invalid or expired token" });
 
-    res.json({ msg: "Password updated successfully" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: "Server error" });
-  }
+  user.password = await bcrypt.hash(password, 10);
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+
+  await user.save();
+  res.json({ msg: "Password updated successfully" });
 };
+
 
 
 module.exports = {

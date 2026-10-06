@@ -52,21 +52,33 @@ const handleAdd = async (e) => {
 
 
 
-  const handleUpdate = async (id) => {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await axios.put(
-        `http://localhost:5000/api/criteria/${id}`,
-        newCriteria,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setCriteria(criteria.map((c) => (c._id === id ? res.data : c)));
-      setEditingId(null);
-      setNewCriteria({ name: "", weight: "", description: "" });
-    } catch (error) {
-      console.error("❌ Update failed:", error);
-    }
-  };
+const handleUpdate = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await axios.put(
+      `http://localhost:5000/api/criteria/${id}`,
+      newCriteria,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    setCriteria((prev) =>
+      prev.map((c) => (c._id === id ? res.data.updated : c))
+    );
+
+    setEditingId(null);
+    setNewCriteria({
+      criteria_name: "",
+      weightage_percent: "",
+      max_marks: "",
+      description: "",
+    });
+  } catch (error) {
+    console.error("❌ Update failed:", error.response?.data || error.message);
+  }
+};
+
+
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this criteria?")) return;

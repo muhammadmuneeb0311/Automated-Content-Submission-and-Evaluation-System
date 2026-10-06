@@ -1,11 +1,10 @@
+import "bootstrap-icons/font/bootstrap-icons.css";
+
+
 const Footer = () => {
   return (
     <>
-      {/* Bootstrap Icons CDN */}
-      <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" 
-        rel="stylesheet" 
-      />
+
 
       <footer className="bg-light border-top mt-auto">
         {/* Compact Footer Content */}
@@ -52,16 +51,7 @@ const Footer = () => {
         </div>
       </footer>
 
-      {/* Custom Styles */}
-      <style jsx>{`
-        .hover-primary:hover {
-          color: var(--bs-primary) !important;
-          transition: color 0.2s ease-in-out;
-        }
-        .fs-7 {
-          font-size: 0.8rem !important;
-        }
-      `}</style>
+   
     </>
   );
 };

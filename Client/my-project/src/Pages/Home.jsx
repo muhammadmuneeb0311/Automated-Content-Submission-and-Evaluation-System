@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button, Container, Row, Col, Card, Badge } from 'react-bootstrap';
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 
 const Home = () => {
   const features = [
@@ -66,10 +68,7 @@ const Home = () => {
   return (
     <>
       {/* Bootstrap Icons */}
-      <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" 
-        rel="stylesheet" 
-      />
+     
 
       {/* Header Navigation */}
       <nav className="bg-white shadow-sm py-3">
@@ -301,22 +300,7 @@ const Home = () => {
         </Container>
       </footer>
 
-      {/* Custom Styles */}
-      <style jsx>{`
-        .bg-gradient-primary {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-        }
-        .min-vh-50 {
-          min-height: 50vh;
-        }
-        .feature-card {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .feature-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
-        }
-      `}</style>
+ 
     </>
   );
 };

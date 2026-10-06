@@ -183,10 +183,36 @@ const debugResolveId = async (req, res) => {
   }
 };
 
+const getTeamMembers = async (req, res) => {
+  try {
+    const { teamId } = req.params;
+
+    const team = await Team.findById(teamId)
+      .populate("members", "_id name email")
+      .exec();
+
+    if (!team) {
+      return res.status(404).json({ message: "Team not found" });
+    }
+
+    res.status(200).json({
+        teamId: team._id,
+  teamName: team.teamName, // ✅ REAL TEAM NAME
+  leaderName: team.name,   // ✅ OPTIONAL (team lead)
+  members: team.members
+    });
+
+  } catch (error) {
+    console.error("getTeamMembers error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
 
 module.exports = {
   getPendingMembers,
   approveMember,
   getMemberTeamName,
-  debugResolveId,
+  debugResolveId,getTeamMembers,
 };
