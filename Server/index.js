@@ -34,7 +34,7 @@ const { activateAccount } = require("./controllers/auth-controllers");
 
 // ===== Import Routes =====
 const authRoutes = require("./Routes/Auth");
-const AdminRoute = require("./Routes/AdminRoutes/AdminRoute");
+const AdminRoute = require("./Routes/adminRoutes/AdminRoute");
 const TeamRoutes = require("./Routes/TeamRoute");
 const submissionRoutes = require("./Routes/SubmissionRoute");
 const assignEvaluatorRoutes = require("./Routes/adminRoutes/assignEvaluatorRoutes");
