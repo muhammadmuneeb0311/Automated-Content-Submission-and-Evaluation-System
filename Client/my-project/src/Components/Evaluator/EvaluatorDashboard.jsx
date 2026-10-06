@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../store";
 import axios from "axios";
@@ -6,11 +6,11 @@ import axios from "axios";
 const EvaluatorDashboard = () => {
   const { token } = useAuth();
   const [assignedSubmissions, setAssignedSubmissions] = useState([]);
-  const [profile, setProfile] = useState(null); // ✅ store evaluator profile
+  const [profile, setProfile] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ✅ Setup axios with token
+  // Setup axios with token
   const axiosInstance = useMemo(
     () =>
       axios.create({
@@ -20,34 +20,35 @@ const EvaluatorDashboard = () => {
     [token]
   );
 
-  // ✅ Fetch assigned submissions
-  const fetchAssignedSubmissions = async () => {
+  // Fetch assigned submissions
+  const fetchAssignedSubmissions = useCallback(async () => {
     try {
       const res = await axiosInstance.get("/evaluators/assigned");
       setAssignedSubmissions(res.data || []);
     } catch (err) {
       console.error("Error fetching assigned submissions:", err);
     }
-  };
+  }, [axiosInstance]);
 
-  // ✅ Fetch evaluator profile
-const fetchProfile = async () => {
-  if (!token) return; // wait until token is available
-  try {
-    const res = await axiosInstance.get("/evaluators/me");
-    setProfile(res.data);
-  } catch (err) {
-    console.error("Error fetching evaluator profile:", err.message);
-  }
-};
+  // Fetch evaluator profile
+  const fetchProfile = useCallback(async () => {
+    if (!token) return;
 
-  // ✅ Refresh data on mount or after navigating back from score page
+    try {
+      const res = await axiosInstance.get("/evaluators/me");
+      setProfile(res.data);
+    } catch (err) {
+      console.error("Error fetching evaluator profile:", err.message);
+    }
+  }, [axiosInstance, token]);
+
+  // Refresh data on mount or after navigating back from score page
   useEffect(() => {
     fetchProfile();
     fetchAssignedSubmissions();
-  }, [axiosInstance, location.pathname]);
+  }, [fetchProfile, fetchAssignedSubmissions, location.pathname]);
 
-  // ✅ Handle Evaluate button
+  // Handle Evaluate button
   const handleEvaluate = (teamId) => {
     navigate(`/score-submission/${teamId}`);
   };
@@ -61,8 +62,12 @@ const fetchProfile = async () => {
         {/* Profile Info */}
         {profile && (
           <div className="mb-4 p-3 border rounded shadow-sm bg-light">
-            <p><strong>Name:</strong> {profile.name}</p>
-            <p><strong>Email:</strong> {profile.email}</p>
+            <p>
+              <strong>Name:</strong> {profile.name}
+            </p>
+            <p>
+              <strong>Email:</strong> {profile.email}
+            </p>
           </div>
         )}
 
@@ -77,8 +82,16 @@ const fetchProfile = async () => {
 
             return (
               <div key={assignment._id} className="card mb-3 p-3 shadow-sm">
-                <h5>Team: {assignment.submissionId?.teamId?.teamName || "N/A"}</h5>
-                <p><strong>Topic:</strong> {assignment.submissionId?.topic || "N/A"}</p>
+                <h5>
+                  Team:{" "}
+                  {assignment.submissionId?.teamId?.teamName || "N/A"}
+                </h5>
+
+                <p>
+                  <strong>Topic:</strong>{" "}
+                  {assignment.submissionId?.topic || "N/A"}
+                </p>
+
                 <p>
                   <strong>Status:</strong>{" "}
                   <span
@@ -95,7 +108,12 @@ const fetchProfile = async () => {
                     {status?.replace(/_/g, " ") || "N/A"}
                   </span>
                 </p>
-                <p><strong>Assigned Date:</strong> {new Date(assignment.assignedDate).toLocaleString()}</p>
+
+                <p>
+                  <strong>Assigned Date:</strong>{" "}
+                  {new Date(assignment.assignedDate).toLocaleString()}
+                </p>
+
                 <p>
                   <strong>Video Link:</strong>{" "}
                   {assignment.submissionId?.videoLink ? (
@@ -110,12 +128,23 @@ const fetchProfile = async () => {
                     "N/A"
                   )}
                 </p>
+
                 <button
-                  className={`btn ${isEvaluated || hasSubmitted ? "btn-success" : "btn-primary"}`}
+                  className={`btn ${
+                    isEvaluated || hasSubmitted
+                      ? "btn-success"
+                      : "btn-primary"
+                  }`}
                   disabled={isEvaluated || hasSubmitted}
-                  onClick={() => handleEvaluate(assignment.submissionId?.teamId?._id)}
+                  onClick={() =>
+                    handleEvaluate(assignment.submissionId?.teamId?._id)
+                  }
                 >
-                  {isEvaluated ? "Evaluated ✅" : hasSubmitted ? "Submitted ✅" : "Evaluate"}
+                  {isEvaluated
+                    ? "Evaluated ✅"
+                    : hasSubmitted
+                    ? "Submitted ✅"
+                    : "Evaluate"}
                 </button>
               </div>
             );

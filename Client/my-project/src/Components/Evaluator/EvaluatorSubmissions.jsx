@@ -1,5 +1,4 @@
-// src/pages/EvaluatorSubmissions.jsx
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store";
 import axios from "axios";
@@ -20,18 +19,18 @@ const EvaluatorSubmissions = () => {
   );
 
   // Fetch assigned submissions
-  const fetchAssignedSubmissions = async () => {
+  const fetchAssignedSubmissions = useCallback(async () => {
     try {
       const res = await axiosInstance.get("/evaluators/assigned");
       setAssignedSubmissions(res.data || []);
     } catch (err) {
       console.error("Error fetching assigned submissions:", err);
     }
-  };
+  }, [axiosInstance]);
 
   useEffect(() => {
     if (token) fetchAssignedSubmissions();
-  }, [token]);
+  }, [token, fetchAssignedSubmissions]);
 
   const handleEvaluate = (teamId) => {
     navigate(`/score-submission/${teamId}`);
@@ -54,8 +53,16 @@ const EvaluatorSubmissions = () => {
               key={assignment._id}
               className="card mb-3 p-3 shadow-sm"
             >
-              <h5>Team: {assignment.submissionId?.teamId?.teamName || "N/A"}</h5>
-              <p><strong>Topic:</strong> {assignment.submissionId?.topic || "N/A"}</p>
+              <h5>
+                Team:{" "}
+                {assignment.submissionId?.teamId?.teamName || "N/A"}
+              </h5>
+
+              <p>
+                <strong>Topic:</strong>{" "}
+                {assignment.submissionId?.topic || "N/A"}
+              </p>
+
               <p>
                 <strong>Status:</strong>{" "}
                 <span
@@ -72,7 +79,12 @@ const EvaluatorSubmissions = () => {
                   {status?.replace(/_/g, " ") || "N/A"}
                 </span>
               </p>
-              <p><strong>Assigned Date:</strong> {new Date(assignment.assignedDate).toLocaleString()}</p>
+
+              <p>
+                <strong>Assigned Date:</strong>{" "}
+                {new Date(assignment.assignedDate).toLocaleString()}
+              </p>
+
               <p>
                 <strong>Video Link:</strong>{" "}
                 {assignment.submissionId?.videoLink ? (
@@ -87,12 +99,23 @@ const EvaluatorSubmissions = () => {
                   "N/A"
                 )}
               </p>
+
               <button
-                className={`btn ${isEvaluated || hasSubmitted ? "btn-success" : "btn-primary"}`}
+                className={`btn ${
+                  isEvaluated || hasSubmitted
+                    ? "btn-success"
+                    : "btn-primary"
+                }`}
                 disabled={isEvaluated || hasSubmitted}
-                onClick={() => handleEvaluate(assignment.submissionId?.teamId?._id)}
+                onClick={() =>
+                  handleEvaluate(assignment.submissionId?.teamId?._id)
+                }
               >
-                {isEvaluated ? "Evaluated ✅" : hasSubmitted ? "Submitted ✅" : "Evaluate"}
+                {isEvaluated
+                  ? "Evaluated ✅"
+                  : hasSubmitted
+                  ? "Submitted ✅"
+                  : "Evaluate"}
               </button>
             </div>
           );
