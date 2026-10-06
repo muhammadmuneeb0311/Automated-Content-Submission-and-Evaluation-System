@@ -45,6 +45,7 @@ const evaluationCriteriaRoutes = require("./Routes/adminRoutes/evaluationCriteri
 const debugRoutes = require("./Routes/debugRoutes");
 const resultRoutes = require("./Routes/adminRoutes/resultRoutes");
 const supportRoutes = require("./Routes/supportRoutes");
+const SupportConversation = require("./Models/supportConversation")
 
 // ===== ROUTE MOUNTING =====
 app.use("/api/admin/result", resultRoutes);

@@ -1,4 +1,4 @@
-const SupportConversation = require("../Models/SupportConversation");
+const SupportConversation = require("../Models/supportConversation");
 const SupportMessage = require("../Models/SupportMessage");
 const User = require("../Models/User");
 const Team = require("../Models/Team");
