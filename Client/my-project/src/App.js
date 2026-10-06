@@ -24,7 +24,8 @@ import Results from "./Components/Admin/ResultBoard";
 import SupportChat from "./Components/SupportChat";
 import ForgotPassword from "./Components/Auth/ForgotPassword";
 import ResetPassword from "./Components/Auth/ResetPassword";
-import RoleBasedSidebar from "./Components/RoleBasedSidebar";
+
+// import RoleBasedSidebar from "./Components/RoleBasedSidebar";
 import RoleBasedDashboard from "./Components/RoleBasedDashboard";
 import EvaluatorSubmissions from "./Components/Evaluator/EvaluatorSubmissions";
 

@@ -775,10 +775,10 @@ const RoleBasedDashboard = () => {
                           <div className="mb-3">
                             <span>Video Link:</span>
                             <div className="mt-1">
-                              <a href="#" className="text-decoration-none">
+                              <link href="#" className="text-decoration-none">
                                 <i className="bi bi-link-45deg me-1"></i>
                                 https://drive.google.com/team-video-link
-                              </a>
+                              </link>
                             </div>
                           </div>
                           <div className="d-grid gap-2">

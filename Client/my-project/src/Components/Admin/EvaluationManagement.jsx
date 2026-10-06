@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import RoleBasedSidebar from "../RoleBasedSidebar";
+
 
 const EvaluationManagement = () => {
   const [criteria, setCriteria] = useState([]);
@@ -92,10 +92,12 @@ const handleUpdate = async (id) => {
       console.error("❌ Delete failed:", error);
     }
   };
-const role = localStorage.getItem("role");
+// const role = localStorage.getItem("role");
+
   return (
     <div className="d-flex">
       {/* <RoleBasedSidebar role={role} />  */}
+
 
       <div className="container mt-4">
         <h3 className="mb-4">Evaluation Criteria Management</h3>
