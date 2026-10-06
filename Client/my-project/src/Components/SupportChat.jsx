@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef,useMemo } from "react";
 import io from "socket.io-client";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
@@ -32,8 +32,14 @@ const SupportChat = () => {
   }, [messages]);
 
   const messagesEndRef = useRef(null);
-  const axiosConfig = { headers: { Authorization: `Bearer ${token}` } };
-
+const axiosConfig = useMemo(
+  () => ({
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }),
+  [token]
+);
   // ===== Initialize Socket =====
   useEffect(() => {
     const newSocket = io("http://localhost:5000", {
@@ -121,28 +127,53 @@ const SupportChat = () => {
     };
 
     fetchConversations();
-  }, [userId, jwtRole, teamId]);
+  }, [userId, jwtRole, teamId,axiosConfig]);
 
   // ===== Load messages =====
+  // useEffect(() => {
+  //   if (!currentConversationId) return;
+  //   const fetchMessages = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const res = await axios.get(
+  //         `http://localhost:5000/api/support/messages/${currentConversationId}`,
+  //         axiosConfig
+  //       );
+  //       setMessages(res.data);
+  //       socket?.emit("join_room", currentConversationId);
+  //     } catch {
+  //       setError("Failed to load messages");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchMessages();
+  // }, [currentConversationId, socket]);
+
+
   useEffect(() => {
-    if (!currentConversationId) return;
-    const fetchMessages = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get(
-          `http://localhost:5000/api/support/messages/${currentConversationId}`,
-          axiosConfig
-        );
-        setMessages(res.data);
-        socket?.emit("join_room", currentConversationId);
-      } catch {
-        setError("Failed to load messages");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchMessages();
-  }, [currentConversationId, socket]);
+  if (!currentConversationId) return;
+
+  const fetchMessages = async () => {
+    try {
+      setLoading(true);
+
+      const res = await axios.get(
+        `http://localhost:5000/api/support/messages/${currentConversationId}`,
+        axiosConfig
+      );
+
+      setMessages(res.data);
+      socket?.emit("join_room", currentConversationId);
+    } catch {
+      setError("Failed to load messages");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchMessages();
+}, [currentConversationId, socket, axiosConfig]);
 
   // ===== Socket listener =====
   useEffect(() => {
