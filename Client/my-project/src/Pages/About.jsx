@@ -304,7 +304,7 @@ const About = () => {
                   No credit card required • 30-day free trial
                 </small>
               </div>
-            </Col>
+            </Col> 
           </Row>
         </Container>
       </section>
