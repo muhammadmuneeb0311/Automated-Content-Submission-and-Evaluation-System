@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Container, Row, Col, Card, Form, Button, Alert, Badge } from 'react-bootstrap';
 
-const URL = "http://localhost:5000/api/auth/register";
+const URL = "https://automated-content-submission-and-t73b.onrender.com/api/auth/register";
 
 const Register = () => {
   const navigate = useNavigate();

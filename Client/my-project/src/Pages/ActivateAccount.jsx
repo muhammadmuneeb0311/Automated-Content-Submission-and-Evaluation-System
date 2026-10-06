@@ -12,7 +12,7 @@ export default function ActivateAccount() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/activate", {
+      const res = await axios.post("https://automated-content-submission-and-t73b.onrender.com/api/auth/activate", {
         token,
         password,
       });

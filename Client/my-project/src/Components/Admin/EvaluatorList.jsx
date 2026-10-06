@@ -4,13 +4,13 @@ const EvaluatorList = () => {
   const [evaluators, setEvaluators] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/admin/evaluators")
+    fetch("https://automated-content-submission-and-t73b.onrender.com/api/admin/evaluators")
       .then(res => res.json())
       .then(data => setEvaluators(data));
   }, []);
 
   const approveEvaluator = async (id) => {
-    await fetch(`http://localhost:5000/api/admin/approve-evaluator/${id}`, {
+    await fetch(`https://automated-content-submission-and-t73b.onrender.com/api/admin/approve-evaluator/${id}`, {
       method: "PUT"
     });
     setEvaluators(evaluators.map(ev => ev._id === id ? { ...ev, approved: true } : ev));

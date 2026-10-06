@@ -28,7 +28,7 @@ const CompetitionSettings = () => {
   const getSettings = useCallback(async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/admin/competition-settings",
+        "https://automated-content-submission-and-t73b.onrender.com/api/admin/competition-settings",
         config
       );
 
@@ -47,13 +47,13 @@ const CompetitionSettings = () => {
     try {
       if (editingId) {
         await axios.put(
-          `http://localhost:5000/api/admin/competition-settings/${editingId}`,
+          `https://automated-content-submission-and-t73b.onrender.com/api/admin/competition-settings/${editingId}`,
           form,
           config
         );
       } else {
         await axios.post(
-          "http://localhost:5000/api/admin/competition-settings",
+          "https://automated-content-submission-and-t73b.onrender.com/api/admin/competition-settings",
           form,
           config
         );
@@ -84,7 +84,7 @@ const CompetitionSettings = () => {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/admin/competition-settings/${id}`,
+        `https://automated-content-submission-and-t73b.onrender.com/api/admin/competition-settings/${id}`,
         config
       );
 

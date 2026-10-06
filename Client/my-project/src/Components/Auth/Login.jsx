@@ -6,7 +6,7 @@ import axios from "axios";
 import { Container, Row, Col, Card, Form, Button, Alert, Spinner } from 'react-bootstrap';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-const URL = "http://localhost:5000/api/auth/login";
+const URL = "https://automated-content-submission-and-t73b.onrender.com/api/auth/login";
 
 const Login = () => {
   const [team, setTeam] = useState({ email: "", password: "" });

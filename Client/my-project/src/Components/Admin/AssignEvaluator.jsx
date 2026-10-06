@@ -7,12 +7,12 @@ const AssignEvaluator = () => {
   const [selectedEvaluator, setSelectedEvaluator] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/admin/teams").then(res => res.json()).then(setTeams);
-    fetch("http://localhost:5000/api/admin/evaluators").then(res => res.json()).then(setEvaluators);
+    fetch("https://automated-content-submission-and-t73b.onrender.com/api/admin/teams").then(res => res.json()).then(setTeams);
+    fetch("https://automated-content-submission-and-t73b.onrender.com/api/admin/evaluators").then(res => res.json()).then(setEvaluators);
   }, []);
 
   const assign = async () => {
-    await fetch("http://localhost:5000/api/admin/assign", {
+    await fetch("https://automated-content-submission-and-t73b.onrender.com/api/admin/assign", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -20,7 +20,7 @@ const UploadSubmission = () => {
 
   const axiosInstance = useMemo(() => {
     return axios.create({
-      baseURL: "http://localhost:5000/api",
+      baseURL: "https://automated-content-submission-and-t73b.onrender.com/api",
       headers: { Authorization: `Bearer ${token}` },
     });
   }, [token]);

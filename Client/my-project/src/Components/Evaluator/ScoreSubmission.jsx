@@ -21,7 +21,7 @@ const ScoreSubmission = () => {
         const fetchCriteria = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const res = await axios.get("http://localhost:5000/api/criteria", {
+                const res = await axios.get("https://automated-content-submission-and-t73b.onrender.com/api/criteria", {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const data = res.data?.data || [];
@@ -53,7 +53,7 @@ const ScoreSubmission = () => {
         try {
             const token = localStorage.getItem("token");
             const res = await axios.post(
-                `http://localhost:5000/api/scores/team/${teamId}`,
+                `https://automated-content-submission-and-t73b.onrender.com/api/scores/team/${teamId}`,
                 { scores },
                 {
                     headers: {
@@ -63,7 +63,7 @@ const ScoreSubmission = () => {
                 }
             );
 
-            console.log("📤 Sending to:", `http://localhost:5000/api/scores/team/${teamId}`);
+            console.log("📤 Sending to:", `https://automated-content-submission-and-t73b.onrender.com/api/scores/team/${teamId}`);
             setMessage(res.data.message);
 
             // mark submitted and redirect to evaluator dashboard

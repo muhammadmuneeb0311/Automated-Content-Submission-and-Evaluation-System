@@ -19,7 +19,7 @@ const AdminDashboard = () => {
   const axiosInstance = useMemo(
     () =>
       axios.create({
-        baseURL: "http://localhost:5000/api",
+        baseURL: "https://automated-content-submission-and-t73b.onrender.com/api",
         headers: { Authorization: token ? `Bearer ${token}` : "" },
       }),
     [token]

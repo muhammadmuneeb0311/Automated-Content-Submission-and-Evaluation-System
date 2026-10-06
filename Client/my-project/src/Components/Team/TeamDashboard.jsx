@@ -12,12 +12,12 @@ const TeamDashboard = () => {
   const decodedTeamId = useMemo(() => contextTeamId || localStorage.getItem("teamId") || "", [contextTeamId]);
 
   const axiosInstance = useMemo(() =>
-    axios.create({ baseURL: "http://localhost:5000/api", headers: { Authorization: token ? `Bearer ${token}` : "" } }),
+    axios.create({ baseURL: "https://automated-content-submission-and-t73b.onrender.com/api", headers: { Authorization: token ? `Bearer ${token}` : "" } }),
     [token]
   );
 
   const teamAxios = useMemo(() =>
-    axios.create({ baseURL: "http://localhost:5000/api/teams", headers: { Authorization: token ? `Bearer ${token}` : "" } }),
+    axios.create({ baseURL: "https://automated-content-submission-and-t73b.onrender.com/api/teams", headers: { Authorization: token ? `Bearer ${token}` : "" } }),
     [token]
   );
 

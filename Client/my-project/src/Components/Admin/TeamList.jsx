@@ -4,7 +4,7 @@ const TeamList = () => {
   const [teams, setTeams] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/admin/teams")
+    fetch("https://automated-content-submission-and-t73b.onrender.com/api/admin/teams")
       .then(res => res.json())
       .then(data => setTeams(data));
   }, []);

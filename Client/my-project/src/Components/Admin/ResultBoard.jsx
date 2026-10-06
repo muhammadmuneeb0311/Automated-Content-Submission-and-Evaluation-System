@@ -13,7 +13,7 @@ const ResultBoard = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        "http://localhost:5000/api/admin/result/published",
+        "https://automated-content-submission-and-t73b.onrender.com/api/admin/result/published",
         {
           method: "GET",
           headers: {
@@ -39,7 +39,7 @@ const ResultBoard = () => {
     setPublishing(true);
     try {
       const res = await fetch(
-        "http://localhost:5000/api/admin/result/calculate-publish",
+        "https://automated-content-submission-and-t73b.onrender.com/api/admin/result/calculate-publish",
         {
           method: "PUT",
           headers: {

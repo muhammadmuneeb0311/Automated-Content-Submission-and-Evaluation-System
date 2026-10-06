@@ -10,7 +10,7 @@ const EvaluationManagement = () => {
   const fetchCriteria = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/criteria/admin", {
+      const res = await axios.get("https://automated-content-submission-and-t73b.onrender.com/api/criteria/admin", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCriteria(res.data.data || []);
@@ -37,7 +37,7 @@ const handleAdd = async (e) => {
     };
 
     const res = await axios.post(
-      "http://localhost:5000/api/criteria/add",
+      "https://automated-content-submission-and-t73b.onrender.com/api/criteria/add",
       payload,
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -57,7 +57,7 @@ const handleUpdate = async (id) => {
     const token = localStorage.getItem("token");
 
     const res = await axios.put(
-      `http://localhost:5000/api/criteria/${id}`,
+      `https://automated-content-submission-and-t73b.onrender.com/api/criteria/${id}`,
       newCriteria,
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -84,7 +84,7 @@ const handleUpdate = async (id) => {
     if (!window.confirm("Are you sure you want to delete this criteria?")) return;
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/criteria/${id}`, {
+      await axios.delete(`https://automated-content-submission-and-t73b.onrender.com/api/criteria/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCriteria(criteria.filter((c) => c._id !== id));

@@ -42,7 +42,7 @@ const axiosConfig = useMemo(
 );
   // ===== Initialize Socket =====
   useEffect(() => {
-    const newSocket = io("http://localhost:5000", {
+    const newSocket = io("https://automated-content-submission-and-t73b.onrender.com/", {
       withCredentials: true,
       extraHeaders: { Authorization: `Bearer ${token}` },
     });
@@ -98,13 +98,13 @@ const axiosConfig = useMemo(
 
         if (jwtRole === "admin") {
           // Admin: fetch all personal conversations
-          res = await axios.get(`http://localhost:5000/api/support/conversation/${idToUse}/${jwtRole}`, axiosConfig);
+          res = await axios.get(`https://automated-content-submission-and-t73b.onrender.com/api/support/conversation/${idToUse}/${jwtRole}`, axiosConfig);
         } else {
           // Team members/leaders: fetch or create personal conversation with admin
-          res = await axios.get(`http://localhost:5000/api/support/conversation/${idToUse}/${jwtRole}`, axiosConfig);
+          res = await axios.get(`https://automated-content-submission-and-t73b.onrender.com/api/support/conversation/${idToUse}/${jwtRole}`, axiosConfig);
           if (res.data.length === 0) {
             const createRes = await axios.post(
-              "http://localhost:5000/api/support/conversation",
+              "https://automated-content-submission-and-t73b.onrender.com/api/support/conversation",
               { team_id: teamId, subject: "Support Chat (Private)" },
               axiosConfig
             );
@@ -159,7 +159,7 @@ const axiosConfig = useMemo(
       setLoading(true);
 
       const res = await axios.get(
-        `http://localhost:5000/api/support/messages/${currentConversationId}`,
+        `https://automated-content-submission-and-t73b.onrender.com/api/support/messages/${currentConversationId}`,
         axiosConfig
       );
 
@@ -204,7 +204,7 @@ const axiosConfig = useMemo(
     try {
       setSending(true);
       const res = await axios.post(
-        "http://localhost:5000/api/support/messages",
+        "https://automated-content-submission-and-t73b.onrender.com/api/support/messages",
         newMsg,
         axiosConfig
       );
